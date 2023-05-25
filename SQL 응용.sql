@@ -3,7 +3,7 @@ use lmsdb;
 
 
 -- 1번
-select distinct tbl_current_lecture.no,lec_duration,lec_time,t_name,lec_name,tbl_current_lecture.class_no 
+select tbl_current_lecture.no,lec_duration,lec_time,t_name,lec_name,tbl_current_lecture.class_no 
 from tbl_current_lecture
 inner join tbl_classroom
 inner join tbl_lecture
@@ -24,7 +24,9 @@ inner join tbl_classroom
 inner join tbl_lecture
 inner join tbl_teacher
 
-on tbl_current_lecture.lec_code=tbl_lecture.lec_code and tbl_current_lecture.class_no=tbl_classroom.class_no and tbl_current_lecture.t_id=tbl_teacher.t_id;
+on tbl_current_lecture.lec_code=tbl_lecture.lec_code 
+and tbl_current_lecture.class_no=tbl_classroom.class_no 
+and tbl_current_lecture.t_id=tbl_teacher.t_id;
 
 select * from view_current_lecture;
 
@@ -32,10 +34,10 @@ select * from view_current_lecture;
 -- 3번
 
 select lec_name,
-sum(if(tbl_current_lecture.lec_time='09:00 - 12:00' ,1,0)) as '09:00 - 12:00',
-sum(if(tbl_current_lecture.lec_time='13:00 - 15:00' ,1,0)) as '13:00 - 15:00',
-sum(if(tbl_current_lecture.lec_time='15:00 - 17:00' ,1,0)) as '15:00 - 17:00'
--- count(lec_time) as '합계' 
+sum(if(lec_time='09:00 - 12:00' ,1,0)) as '09:00 - 12:00',
+sum(if(lec_time='13:00 - 15:00' ,1,0)) as '13:00 - 15:00',
+sum(if(lec_time='15:00 - 17:00' ,1,0)) as '15:00 - 17:00'
+
 from tbl_current_lecture
 inner join tbl_lecture
 on tbl_current_lecture.lec_code=tbl_lecture.lec_code
